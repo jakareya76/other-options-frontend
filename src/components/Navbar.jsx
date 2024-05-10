@@ -1,7 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
+  const { user, loading, logoutUser } = useContext(AuthContext);
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -40,7 +44,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <img src={logo} alt="logo" className="w-[120px]" />
+        <Link to="/">
+          <img src={logo} alt="logo" className="w-[120px]" />
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu gap-5 menu-horizontal px-1">
@@ -54,12 +60,29 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <ul className="menu gap-5 menu-horizontal px-1">
-          <li>
-            <NavLink to="/login">Login</NavLink>
-          </li>
-          <li>
-            <NavLink to="/sign-up">Sign Up</NavLink>
-          </li>
+          {loading ? (
+            <span className="loading loading-ring loading-lg"></span>
+          ) : (
+            <>
+              {user ? (
+                <button
+                  onClick={() => logoutUser()}
+                  className="btn btn-primary"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <li>
+                    <NavLink to="/login">Login</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/sign-up">Sign Up</NavLink>
+                  </li>
+                </>
+              )}
+            </>
+          )}
         </ul>
       </div>
     </div>

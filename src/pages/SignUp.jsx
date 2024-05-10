@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const { signUpUser } = useContext(AuthContext);
+  const { signUpUser, user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -23,10 +26,16 @@ const SignUp = () => {
         displayName: name,
         photoURL: photo,
       });
+
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  if (user) {
+    navigate("/");
+  }
 
   return (
     <div className="hero min-h-screen bg-base-200">
