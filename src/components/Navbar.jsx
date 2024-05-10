@@ -3,24 +3,32 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
   return (
-    <div className="container mx-auto">
-      <div className="navbar bg-base-100">
-        <div className="flex-1">
+    <div className="container mx-auto bg-transparent">
+      <div className="navbar">
+        <div className="flex-1 z-50">
           <img src={logo} alt="logo" className="w-[120px] " />
         </div>
-        <div className="flex-none">
+        <div className="flex-none z-50">
           <ul className="menu menu-horizontal gap-5 px-1">
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/" className={`text-white`}>
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/queries">Queries</NavLink>
+              <NavLink to="/queries" className={`text-white`}>
+                Queries
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/login" className={`text-white`}>
+                Login
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/sign-up">Sign Up</NavLink>
+              <NavLink to="/sign-up" className={`text-white`}>
+                Sign Up
+              </NavLink>
             </li>
           </ul>
         </div>
