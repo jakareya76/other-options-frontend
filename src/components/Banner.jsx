@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 const Banner = () => {
   return (
-    <div className="-mt-[80px]">
+    <div>
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={50}
