@@ -1,22 +1,30 @@
+import { Link } from "react-router-dom";
+
 const SlideTow = () => {
   return (
     <div
-      className="hero min-h-screen"
+      className="min-h-screen hero"
       style={{
         backgroundImage:
-          "url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)",
+          "url(https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
       }}
     >
       <div className="hero-overlay bg-opacity-60"></div>
-      <div className="hero-content text-center text-neutral-content">
-        <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">Welcome</h1>
-          <p className="mb-5">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+      <div className="text-center hero-content text-neutral-content">
+        <div className="max-w-2xl">
+          <h1 className="mb-5 text-xl font-bold md:text-5xl">
+            Stay Connected on the Go!
+          </h1>
+          <p className="mb-5 text-sm">
+            Find the latest smartphones with cutting-edge technology and
+            user-driven insights. Whether you're looking for battery life,
+            camera quality, or seamless performance, our platform offers
+            personalized recommendations from real users. Get the best device
+            for your lifestyle today!
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <Link to="/queries" className="btn btn-primary">
+            All Queries
+          </Link>
         </div>
       </div>
     </div>
