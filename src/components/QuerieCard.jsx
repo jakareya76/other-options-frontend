@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
+import { Link } from "react-router-dom";
 
 const QuerieCard = ({ querie }) => {
   const {
+    _id,
     photoURL,
     productBrand,
     recommendationCount,
@@ -18,7 +20,7 @@ const QuerieCard = ({ querie }) => {
     <div className="max-w-sm overflow-hidden bg-white rounded shadow-lg">
       <img className="object-cover w-full h-48" src={photoURL} alt="Product" />
       <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-semibold text-gray-900">
+        <div className="mb-2 text-lg font-semibold text-gray-900">
           {queryTitle}
         </div>
         <div className="flex items-center justify-between mb-2 font-semibold">
@@ -44,6 +46,12 @@ const QuerieCard = ({ querie }) => {
             </p>
           </div>
         </div>
+        <Link
+          to={`/querie-details/${_id}`}
+          className="w-full mt-4 text-white bg-green-500 hover:bg-green-600 btn"
+        >
+          View Details
+        </Link>
       </div>
     </div>
   );

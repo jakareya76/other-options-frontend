@@ -11,6 +11,8 @@ import MyQueries from "../pages/MyQueries";
 import MyRecommendations from "../pages/MyRecommendations";
 import AddQueries from "../pages/AddQueries";
 import PrivateRoutes from "./PrivateRoutes";
+import QuerieDetails from "../pages/QuerieDetails";
+import EditQueries from "../pages/EditQueries";
 
 const Routes = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const Routes = createBrowserRouter([
             <AddQueries />
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/querie-details/:id",
+        element: <QuerieDetails />,
+      },
+      {
+        path: "/edit-querie/:id",
+        element: <EditQueries />,
       },
       {
         path: "/login",
