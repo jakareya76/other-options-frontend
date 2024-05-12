@@ -1,6 +1,24 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../api/api";
+import { AuthContext } from "../context/AuthProvider";
+import QuerieCard from "../components/QuerieCard";
 
 const MyQueries = () => {
+  const [myQueries, setMyQueries] = useState([]);
+
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const getMyQueries = async () => {
+      const res = await api(`/user-queries?email=${user.email}`);
+
+      setMyQueries(res.data);
+    };
+
+    getMyQueries();
+  }, []);
+
   return (
     <div>
       <div
@@ -18,9 +36,19 @@ const MyQueries = () => {
       <div className="my-10">
         <h2 className="text-3xl font-bold text-center">My Query</h2>
 
-        <p className="my-10 text-center text-red-500">
-          No Query Found Please Add One!
-        </p>
+        {myQueries.length === 0 && (
+          <p className="my-10 text-center text-red-500">
+            No Query Found Please Add One!
+          </p>
+        )}
+
+        <div className="flex items-center justify-center mt-8">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {myQueries.map((item) => {
+              return <QuerieCard key={item._id} querie={item} />;
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
