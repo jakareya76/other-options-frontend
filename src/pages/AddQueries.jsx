@@ -18,6 +18,7 @@ const AddQueries = () => {
 
     const userName = user?.displayName;
     const userEmail = user?.email;
+    const userPhoto = user?.photoURL;
 
     const queries = {
       productName,
@@ -27,6 +28,7 @@ const AddQueries = () => {
       boycottingReason,
       userEmail,
       userName,
+      userPhoto,
       recommendationCount: 0,
     };
 

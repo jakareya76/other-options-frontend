@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import AddRecommendation from "./AddRecommendation";
 
 const QuerieDetails = () => {
   const [querieDetails, setQuerieDetails] = useState({});
@@ -18,6 +19,7 @@ const QuerieDetails = () => {
   }, []);
 
   const {
+    _id,
     boycottingReason,
     photoURL,
     productBrand,
@@ -29,26 +31,42 @@ const QuerieDetails = () => {
   } = querieDetails;
 
   return (
-    <div className="container px-4 py-8 mx-auto">
-      <div className="max-w-xl p-8 mx-auto bg-white rounded-md shadow-md">
-        <h2 className="mb-4 text-2xl font-semibold">{queryTitle}</h2>
-        <div className="flex flex-col mb-4">
-          <img src={photoURL} alt={productName} className="w-full" />
-          <div className="flex items-center gap-4 mt-5 text-left">
-            <p className="text-lg font-semibold">{productName}</p>
-            <p className="text-gray-600">{productBrand}</p>
+    <>
+      <div className="p-8 bg-gray-100 ">
+        <div className="container p-6 mx-auto bg-white border rounded-lg">
+          <div className="flex flex-col lg:flex-row">
+            <img
+              src={photoURL}
+              alt="Product"
+              className="object-cover w-full rounded-lg max-h-[250px] lg:w-1/3"
+            />
+            <div className="lg:ml-6 lg:w-2/3">
+              <h1 className="text-2xl font-bold text-gray-900">{queryTitle}</h1>
+              <h2 className="text-xl text-gray-700">
+                {productName} - {productBrand}
+              </h2>
+              <p className="mt-2 text-gray-600">{boycottingReason}</p>
+              <p className="mt-2 text-gray-500">
+                Date Posted: {new Date(timestamp).toLocaleDateString()}
+              </p>
+              <p className="mt-1 text-gray-500">
+                {recommendationCount} Recommendations
+              </p>
+              <div className="mt-3">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Added By: {userName}
+                </h3>
+
+                <Link to={`/queries`} className="px-8 my-2 btn btn-primary">
+                  Go Back
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-        <p className="mb-4 text-gray-700">{boycottingReason}</p>
-        <div className="flex items-center justify-between">
-          <p className="text-gray-600">{`${recommendationCount} recommendations`}</p>
-          <p className="text-gray-600">{timestamp}</p>
-        </div>
-        <div className="flex items-center mt-4">
-          <p className="text-gray-700">{userName}</p>
-        </div>
       </div>
-    </div>
+      <AddRecommendation />
+    </>
   );
 };
 
