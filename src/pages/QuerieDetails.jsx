@@ -28,6 +28,7 @@ const QuerieDetails = () => {
     recommendationCount,
     timestamp,
     userName,
+    userEmail,
   } = querieDetails;
 
   return (
@@ -65,7 +66,7 @@ const QuerieDetails = () => {
           </div>
         </div>
       </div>
-      <AddRecommendation />
+      <AddRecommendation userInfo={{ id: _id, userName, userEmail }} />
     </>
   );
 };

@@ -1,11 +1,55 @@
-const AddRecommendation = () => {
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import api from "../api/api";
+
+const AddRecommendation = ({ userInfo }) => {
+  const { id, userName, userEmail } = userInfo;
+
+  const { user } = useContext(AuthContext);
+
+  const handleAddRecommendation = async (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+
+    const title = form.title.value;
+    const productName = form.productName.value;
+    const productImage = form.productImage.value;
+    const reason = form.reason.value;
+
+    const recommended = {
+      queryId: id,
+      title,
+      productImage,
+      productName,
+      reason,
+      userEmail,
+      userName,
+      RecommenderEmail: user?.email,
+      RecommenderName: user?.displayName,
+    };
+
+    try {
+      const res = await api.post("/add-recommend", recommended);
+
+      if (res.data.acknowledged) {
+        form.reset();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="p-8 bg-gray-100">
       <h2 className="my-8 text-2xl font-bold text-center">
         Add Your Recommendation
       </h2>
 
-      <form className="grid grid-cols-1 gap-5 px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md md:grid-cols-2">
+      <form
+        onSubmit={handleAddRecommendation}
+        className="grid grid-cols-1 gap-5 px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md md:grid-cols-2"
+      >
         <div className="mb-4">
           <label
             className="block mb-2 text-sm font-bold text-gray-700"
