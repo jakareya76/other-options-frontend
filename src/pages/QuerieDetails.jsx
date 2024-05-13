@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../api/api";
 import { Link, useParams } from "react-router-dom";
-import AddRecommendation from "./AddRecommendation";
+import AddRecommendation from "../components/AddRecommendation";
+import AllRecommendation from "../components/AllRecommendation";
 
 const QuerieDetails = () => {
   const [querieDetails, setQuerieDetails] = useState({});
@@ -66,6 +67,7 @@ const QuerieDetails = () => {
           </div>
         </div>
       </div>
+      <AllRecommendation id={_id} />
       <AddRecommendation userInfo={{ id: _id, userName, userEmail }} />
     </>
   );
