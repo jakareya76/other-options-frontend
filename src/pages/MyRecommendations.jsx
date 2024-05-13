@@ -17,8 +17,6 @@ const MyRecommendations = () => {
     getMyRecommendations();
   }, []);
 
-  console.log(myRecommendations);
-
   return (
     <div className="p-5">
       <h2 className="my-8 text-2xl font-semibold text-center">

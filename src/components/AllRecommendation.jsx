@@ -17,7 +17,9 @@ const AllRecommendation = ({ id }) => {
   return (
     <>
       <div className="p-8 bg-gray-100">
-        <h2 className="text-xl font-semibold">All Recommendation</h2>
+        <h2 className="text-xl font-semibold">
+          {recommendation.length > 0 && "All Recommendation"}
+        </h2>
 
         {recommendation.map((item) => {
           return (
