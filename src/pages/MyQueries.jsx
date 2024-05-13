@@ -8,6 +8,20 @@ const MyQueries = () => {
 
   const { user } = useContext(AuthContext);
 
+  const handleDelete = async (id) => {
+    const res = await api.delete(`/delete-querie/${id}`);
+
+    if (res.data.deletedCount > 0) {
+      setMyQueries((prev) => {
+        return prev.filter((querie) => {
+          return querie._id !== id;
+        });
+      });
+    }
+
+    console.log(res);
+  };
+
   useEffect(() => {
     const getMyQueries = async () => {
       const res = await api(`/user-queries?email=${user.email}`);
@@ -107,7 +121,10 @@ const MyQueries = () => {
                       >
                         Edit
                       </Link>
-                      <button className="px-5 text-white bg-red-500 hover:bg-red-600 btn">
+                      <button
+                        onClick={() => handleDelete(_id)}
+                        className="px-5 text-white bg-red-500 hover:bg-red-600 btn"
+                      >
                         Delete
                       </button>
                     </div>
