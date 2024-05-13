@@ -7,6 +7,20 @@ const MyRecommendations = () => {
 
   const { user } = useContext(AuthContext);
 
+  const handleDelete = async (id) => {
+    try {
+      const res = await api.delete(`/delete-recommendation/${id}`);
+
+      if (res.data.deletedCount > 0) {
+        setMyRecommendations((prev) => {
+          return prev.filter((recommendations) => {
+            return recommendations._id !== id;
+          });
+        });
+      }
+    } catch (error) {}
+  };
+
   useEffect(() => {
     const getMyRecommendations = async () => {
       const res = await api.get(`/my-recommendation?email=${user?.email}`);
@@ -38,7 +52,7 @@ const MyRecommendations = () => {
           <tbody>
             {myRecommendations.map((item) => {
               return (
-                <tr>
+                <tr key={item._id}>
                   <td>
                     <img
                       src={item.productImage}
@@ -50,7 +64,12 @@ const MyRecommendations = () => {
                   <td>{item.productName}</td>
                   <td>{item.RecommenderName}</td>
                   <td>
-                    <button className="text-white btn btn-error">Delete</button>
+                    <button
+                      onClick={() => handleDelete(item._id)}
+                      className="text-white btn btn-error"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );

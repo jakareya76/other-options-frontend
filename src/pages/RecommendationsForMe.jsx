@@ -31,13 +31,12 @@ const RecommendationsForMe = () => {
               <th>Title</th>
               <th>Product Name</th>
               <th>Recommender Name</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {recommendationsForMe.map((item) => {
               return (
-                <tr>
+                <tr key={item._id}>
                   <td>
                     <img
                       src={item.productImage}
@@ -48,9 +47,6 @@ const RecommendationsForMe = () => {
                   <td>{item.title}</td>
                   <td>{item.productName}</td>
                   <td>{item.RecommenderName}</td>
-                  <td>
-                    <button className="text-white btn btn-error">Delete</button>
-                  </td>
                 </tr>
               );
             })}
