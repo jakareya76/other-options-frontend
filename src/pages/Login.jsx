@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 
 const Login = () => {
   const { loginUser, user } = useContext(AuthContext);
@@ -17,7 +18,15 @@ const Login = () => {
     try {
       await loginUser(email, password);
 
-      navigate("/");
+      const userInfo = { email };
+
+      const res = await api.post("/jwt", userInfo, {
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -28,12 +37,12 @@ const Login = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content gap-8 flex-col">
+    <div className="min-h-screen hero bg-base-200">
+      <div className="flex-col gap-8 hero-content">
         <div className="text-center lg:text-left">
           <h1 className="text-3xl font-bold">Login now!</h1>
         </div>
-        <div className="card shrink-0 w-full shadow-2xl bg-base-100">
+        <div className="w-full shadow-2xl card shrink-0 bg-base-100">
           <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -64,7 +73,7 @@ const Login = () => {
                 </a>
               </label>
             </div>
-            <div className="form-control mt-6">
+            <div className="mt-6 form-control">
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
