@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import api from "../api/api";
+import { toast } from "react-toastify";
 
 const AddQueries = () => {
   const { user } = useContext(AuthContext);
@@ -36,6 +37,7 @@ const AddQueries = () => {
       const res = await api.post(`/add-queries`, queries);
 
       if (res.data.acknowledged) {
+        toast.success("Product Added Successfully");
         form.reset();
       }
     } catch (error) {

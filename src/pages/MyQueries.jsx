@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/api";
 import { AuthContext } from "../context/AuthProvider";
+import { toast } from "react-toastify";
 
 const MyQueries = () => {
   const [myQueries, setMyQueries] = useState([]);
@@ -11,6 +12,8 @@ const MyQueries = () => {
   const handleDelete = async (id) => {
     const res = await api.delete(`/delete-querie/${id}`);
 
+    toast.success("Delete Successfully");
+
     if (res.data.deletedCount > 0) {
       setMyQueries((prev) => {
         return prev.filter((querie) => {
@@ -18,8 +21,6 @@ const MyQueries = () => {
         });
       });
     }
-
-    console.log(res);
   };
 
   useEffect(() => {

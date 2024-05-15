@@ -9,29 +9,27 @@ const MyRecommendations = () => {
   const { user } = useContext(AuthContext);
 
   const handleDelete = (id) => {
-    try {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const res = await api.delete(`/delete-recommendation/${id}`);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await api.delete(`/delete-recommendation/${id}`);
 
-          if (res.data.deletedCount > 0) {
-            setMyRecommendations((prev) => {
-              return prev.filter((recommendations) => {
-                return recommendations._id !== id;
-              });
+        if (res.data.deletedCount > 0) {
+          setMyRecommendations((prev) => {
+            return prev.filter((recommendations) => {
+              return recommendations._id !== id;
             });
-          }
+          });
         }
-      });
-    } catch (error) {}
+      }
+    });
   };
 
   useEffect(() => {

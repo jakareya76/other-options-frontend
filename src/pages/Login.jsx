@@ -31,7 +31,8 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      console.log(error.message);
+      if (error.message === "Firebase: Error (auth/invalid-credential).")
+        toast.error("invalid credential");
     }
   };
 
