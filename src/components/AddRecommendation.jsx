@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthProvider";
 import api from "../api/api";
 
@@ -33,6 +34,7 @@ const AddRecommendation = ({ userInfo }) => {
       const res = await api.post("/add-recommend", recommended);
 
       if (res.data.acknowledged) {
+        toast.success("Add Your Recommendation Successfully");
         form.reset();
       }
     } catch (error) {
