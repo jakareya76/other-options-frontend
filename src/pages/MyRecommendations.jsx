@@ -1,23 +1,36 @@
 import { useContext, useEffect, useState } from "react";
-import api from "../api/api";
+import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
+import api from "../api/api";
 
 const MyRecommendations = () => {
   const [myRecommendations, setMyRecommendations] = useState([]);
 
   const { user } = useContext(AuthContext);
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     try {
-      const res = await api.delete(`/delete-recommendation/${id}`);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await api.delete(`/delete-recommendation/${id}`);
 
-      if (res.data.deletedCount > 0) {
-        setMyRecommendations((prev) => {
-          return prev.filter((recommendations) => {
-            return recommendations._id !== id;
-          });
-        });
-      }
+          if (res.data.deletedCount > 0) {
+            setMyRecommendations((prev) => {
+              return prev.filter((recommendations) => {
+                return recommendations._id !== id;
+              });
+            });
+          }
+        }
+      });
     } catch (error) {}
   };
 

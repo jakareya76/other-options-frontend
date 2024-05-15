@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import api from "../api/api";
 
 const Login = () => {
@@ -25,6 +27,7 @@ const Login = () => {
       });
 
       if (res.data.success) {
+        toast.success("Login Successfully");
         navigate("/");
       }
     } catch (error) {

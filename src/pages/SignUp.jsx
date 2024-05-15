@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const { signUpUser, user } = useContext(AuthContext);
@@ -27,6 +28,8 @@ const SignUp = () => {
         photoURL: photo,
       });
 
+      toast.success("Sign Up Successfully");
+
       navigate("/");
     } catch (error) {
       console.log(error.message);
@@ -38,12 +41,12 @@ const SignUp = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content gap-8 flex-col">
-        <div className="card shrink-0 shadow-2xl bg-base-100">
+    <div className="min-h-screen hero bg-base-200">
+      <div className="flex-col gap-8 hero-content">
+        <div className="shadow-2xl card shrink-0 bg-base-100">
           <form
             onSubmit={handleSignUp}
-            className="grid gap-5 p-5 md:grid-cols-2 col-span-1"
+            className="grid col-span-1 gap-5 p-5 md:grid-cols-2"
           >
             <div className="form-control">
               <label className="label">
@@ -93,7 +96,7 @@ const SignUp = () => {
                 required
               />
             </div>
-            <div className="form-control mt-6 md:col-span-2">
+            <div className="mt-6 form-control md:col-span-2">
               <button type="submit" className="btn btn-primary">
                 Sign Up
               </button>
